@@ -1,7 +1,7 @@
 anti
 ====
 
-Sequel to anti-db, auto-persist an object for Node or browser.  Takes any object and auto-saves it to file (Node) or localStorage (browser) upon program (or browser) exit, and optionally at a specified interval
+Sequel to anti-db, auto-persist an object for Node or browser.  Takes any object and auto-saves it to file (Node) or localStorage (browser) upon program (or browser) exit, and optionally at a specified interval.
 
 ####anti(obj, [name], [interval]);
 
