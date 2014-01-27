@@ -58,7 +58,10 @@ o.c.c = 3;
 
 Browser
 ````
-var x = {a: 1, b: 2};
-anti(x, null, 1000);
-console.log(localStorage['./db.json']);
+var anti = require('anti'),
+  o = anti('mydb');  // creates new or gets from disk
+o.a = 1;
+o.b = 2;
+
+console.log(localStorage['./mydb.json']);
 ````
