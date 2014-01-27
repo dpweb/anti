@@ -30,7 +30,7 @@ You can also treat a whole folder like it was a database, with each file being a
 // myfolder is a directory containing some json files: a.json, b.json, c.json
 
 var anti = require('anti'),
-  a = anti({dir: 'myfolder'}, []);
+  a = anti(['myfolder']);
 
 a[0].say = 'Im A';
 // saved to ./myfolder/a.json
@@ -46,7 +46,7 @@ or use as an object/hash
 // myfolder is a directory containing some json files: a.json, b.json, c.json
 
 var anti = require('anti'),
-  o = anti({dir: 'myfolder'}, {});
+  o = anti({dir: 'myfolder'});
 
 o.a.a = 1;
 // saved to ./myfolder/a.json
