@@ -1,7 +1,7 @@
 anti
 ====
 
-A db memory cache without the db!  Takes any object and auto-saves it to file (Node) or localStorage (browser) upon program (or browser) exit, and optionally at a specified interval.
+A db memory cache without the db!  Takes any object and auto-saves it to file upon program exit, and optionally at a specified interval.
 
 Node
 ````
@@ -56,12 +56,10 @@ o.c.c = 3;
 // saved to ./myfolder/c.json
 ````
 
-Browser
+Save at specified interval
 ````
 var anti = require('anti'),
-  o = anti('mydb');  // creates new or gets from disk
+  o = anti('mydb').saveOn(10000);  // save every 10 sec.
 o.a = 1;
 o.b = 2;
-
-console.log(localStorage['./mydb.json']);
 ````
