@@ -1,7 +1,8 @@
 {
   "name": "anti",
   "description": "A plain JS object persisted behind the scenes",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "keywords": [],
+  "main": "anti.js",
   "dependencies": {}
 }
