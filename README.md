@@ -59,7 +59,7 @@ o.c.c = 3;
 Save at specified interval
 ````
 var anti = require('anti'),
-  o = anti('mydb').saveOn(10000);  // save every 10 sec.
+  o = anti('mydb', null, 10000);  // save every 10 sec.
 o.a = 1;
 o.b = 2;
 ````
