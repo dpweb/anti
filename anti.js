@@ -1,5 +1,7 @@
 var fs = require('fs'),
-  objs = [];
+  objs = [],
+  once = 1,
+  basepath = require('path').dirname(require.main.filename);
 
 // help Win32 get SIGINT correctly
 if (process.platform === "win32"){
@@ -16,38 +18,46 @@ if (process.platform === "win32"){
 function anti(fn, o, t){
 
   if(typeof fn === 'string'){
-    fn = './' + fn + '.json';
+
+    fn = basepath + '/' + fn + '.json';
     if(fs.existsSync(fn))
    	  o = require(fn);
     o = o || {};
+    objs.push([fn, o]);
+
   } else {
+
   	var isArr = Array.isArray(fn);
-  	var path = isArr ? fn[0] : fn.dir;
+  	var path = basepath + '/' + (isArr ? fn[0] : fn.dir);
+    var spath = (isArr ? fn[0] : fn.dir);
   	var o = isArr ? [] : {};
+
   	fs.readdirSync(path).map(function(fn){
-      var a = anti(path + '/' + fn.replace('.json', ''), require('./' + path + '/' + fn), t);
-      isArr ? o.push(a) : o[fn.replace('.json', '')] = a;
+      if(!fn.match(/\.json$/)) return;
+      var name = fn.replace('.json', '');
+      var a = anti(spath + '/' + name, require(path + '/' + fn), t);
+      isArr ? o.push(a) : o[name] = a;
   	})
+    
   }
 
   var save = function(fn, o){
-  	if(typeof fn !== 'string') return;
     fs.writeFileSync(fn, JSON.stringify(o, null, 4));
   }
 
   var saveAll = function(){
-  	objs.map(function(f){ save(f[0], f[1]) });
+    objs.map(function(f){ save(f[0], f[1]) });
   }
 
-  if(!objs.length){
+  if(once){
     process.on('exit', saveAll);
     process.on('SIGINT', saveAll);
+    once = 0;
   }
 
-  objs.push([fn, o]);
-
   if(t) setInterval(save, t);
-  return(o);
+  return o;
+
 }
 
 module.exports = anti;
